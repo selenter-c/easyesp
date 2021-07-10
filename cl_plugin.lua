@@ -41,7 +41,7 @@ function PLUGIN:HUDPaint()
 
 	if !client:GetCharacter() then return end
 	if !client:Alive() then return end
-	if !client:IsSuperAdmin() then return end
+	if !client:IsAdmin() then return end
 	if client:GetMoveType() != MOVETYPE_NOCLIP then return end
 
 	for k, v in pairs(player.GetAll()) do
