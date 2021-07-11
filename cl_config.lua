@@ -28,7 +28,7 @@ PLUGIN:AddPlayerESPCustomization("name_pl", {
 })
 
 PLUGIN:AddPlayerESPCustomization("steamname_pl", {
-    dist = 1000,
+    dist = 0,
     config = {
         name = "Стим Ник игрока",
         desc = "Включить показатель стим ника игрока"
