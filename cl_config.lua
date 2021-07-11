@@ -238,7 +238,7 @@ PLUGIN:AddEntityESPCustomization("chams_en", {
         desc = "Включить чамсы энтити"
     },
     data = function(entity)
-        local col = PLUGIN.entslist[entity:GetClass()]
+        local col = PLUGIN.entslist[entity:GetClass()] or Color(255, 255, 255)
 
         cam.Start3D(EyePos(), EyeAngles())
             render.SuppressEngineLighting(true)
