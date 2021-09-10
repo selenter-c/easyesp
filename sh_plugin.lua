@@ -39,8 +39,8 @@ local function addLang(name, index, data)
         data.config.index = index
 
         local c_index = "AdminESP_" .. index
-        local c_name = "optAdminESP_" .. index
-        local c_desc = "optdAdminESP_" .. index
+        local c_name = "opt" .. c_index
+        local c_desc = "optd" .. c_index
 
         local newindex = index
         newindex = newindex:gsub("_pl", "")
