@@ -50,7 +50,7 @@ function PLUGIN:HUDPaint()
                 for k2, v2 in pairs(info) do
                     if v2[1] and self:DistanceFits(LocalPlayer():GetPos(), v:GetPos(), v2[2]) then
                         local pos = v:GetPos()
-                        local head = Vector(pos.x, pos.y, pos.z)
+                        local head = Vector(pos.x, pos.y, !t and pos.z or pos.z +60)
                         local headPos = head:ToScreen()
                         local distance = LocalPlayer():GetPos():Distance(v:GetPos())
                         local x, y = headPos.x, headPos.y
