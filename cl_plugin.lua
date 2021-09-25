@@ -7,7 +7,6 @@
         
         developer(s):
             Selenter - https://steamcommunity.com/id/selenter
-
         ——— Chop your own wood and it will warm you twice.
 ]]--
 
@@ -38,34 +37,34 @@ end
 
 function PLUGIN:HUDPaint()
 	local client = LocalPlayer()
-    if client:GetCharacter() and client:Alive() and client:IsAdmin() and client:GetMoveType() == MOVETYPE_NOCLIP then
+	if client:GetCharacter() and client:Alive() and client:IsAdmin() and client:GetMoveType() == MOVETYPE_NOCLIP then
+		for k, v in pairs(ents.GetAll()) do
+			local p = v:IsPlayer()
+			if !p and !self.entslist[v:GetClass()] then goto skip end
 
-        for k, v in pairs(ents.GetAll()) do
-            local p = v:IsPlayer()
+			if !p or (p and v != LocalPlayer() and v:Alive() and v:GetCharacter()) then
+				local _y = 0
+				local info = v:ESPInfo()
 
-            if !p and !self.entslist[v:GetClass()] then goto skip end
-            if !p or (p and v != LocalPlayer() and v:Alive() and v:GetCharacter()) then
-                local _y = 0
-                local info = v:ESPInfo()
-                for k2, v2 in pairs(info) do
-                    if v2[1] and self:DistanceFits(LocalPlayer():GetPos(), v:GetPos(), v2[2]) then
-                        local pos = v:GetPos()
-                        local head = Vector(pos.x, pos.y, !t and pos.z or pos.z +60)
-                        local headPos = head:ToScreen()
-                        local distance = LocalPlayer():GetPos():Distance(v:GetPos())
-                        local x, y = headPos.x, headPos.y
-                        local f = math.abs(350 / distance)
-                        local size = 52 * f
-                        local col = self.entslist[v:GetClass()] or color_white
+				for k2, v2 in pairs(info) do
+					if v2[1] and self:DistanceFits(LocalPlayer():GetPos(), v:GetPos(), v2[2]) then
+						local pos = v:GetPos()
+						local head = Vector(pos.x, pos.y, !p and pos.z or pos.z + 60)
+						local headPos = head:ToScreen()
+						local distance = LocalPlayer():GetPos():Distance(v:GetPos())
+						local x, y = headPos.x, headPos.y
+						local f = math.abs(350 / distance)
+						local size = 52 * f
+						local col = (p and team.GetColor(v:Team()) or self.entslist[v:GetClass()]) or color_white
 
-                        createText(tostring(v2[1]), (x - size / 2) + size, y - size / 2, col, _y)
+						createText(tostring(v2[1]), (x - size / 2) + size, y - size / 2, col, _y)
 
-                        _y = _y + 15
-                    end
-                end
-            end
+						_y = _y + 15
+					end
+				end
+			end
 
-            ::skip::
-        end
-    end
+			::skip::
+		end
+	end
 end
